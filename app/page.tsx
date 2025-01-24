@@ -1,0 +1,67 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Header from "@/components/Header";
+import Hero from "@/components/Hero";
+import Services from "@/components/Services";
+import Recognition from "@/components/Recognition";
+import Insights from "@/components/Insights";
+import Footer from "@/components/Footer";
+import ThemeToggle from "@/components/ThemeToggle";
+import LanguageToggle from "@/components/LanguageToggle";
+import CaseStudies from "@/components/CaseStudies";
+type Language = "en" | "ru";
+
+export default function Home() {
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [language, setLanguage] = useState<Language>("en");
+
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);
+
+  const pageVariants = {
+    initial: { opacity: 0, y: 20 },
+    in: { opacity: 1, y: 0 },
+    out: { opacity: 0, y: -20 },
+  };
+
+  const pageTransition = {
+    type: "tween",
+    ease: "anticipate",
+    duration: 0.5,
+  };
+
+  return (
+    <div className="bg-[url('/bg_image.png')] bg-cover bg-center bg-fixed">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={theme + language}
+          initial="initial"
+          animate="in"
+          exit="out"
+          variants={pageVariants}
+          transition={pageTransition}
+          className={`min-h-screen ${theme}`}
+        >
+          <Header language={language} />
+          <ThemeToggle
+            theme={theme}
+            setTheme={(value) => setTheme(value as "light" | "dark")}
+          />
+          <LanguageToggle
+            language={language}
+            setLanguage={(value) => setLanguage(value as Language)}
+          />
+          <Hero language={language} />
+          <Services language={language} />
+          <Recognition language={language} />
+          <CaseStudies language={language} />
+          <Insights language={language} />
+          <Footer language={language} />
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+}
