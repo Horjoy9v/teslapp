@@ -65,7 +65,7 @@ export default function Footer({ language }: FooterProps) {
             <h3 className="text-lg font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">
               РАЙТ
             </h3>
-            <p>© 2023 {content[language].rights}</p>
+            <p>© 2025 {content[language].rights}</p>
           </motion.div>
           <motion.div variants={itemVariants}>
             <h3 className="text-lg font-semibold mb-4">
@@ -126,7 +126,7 @@ export default function Footer({ language }: FooterProps) {
           className="border-t border-primary-foreground/20 pt-8 flex flex-col md:flex-row justify-between items-center"
           variants={itemVariants}
         >
-          <p>&copy; 2023 РАЙТ. {content[language].rights}.</p>
+          <p>&copy; 2025 РАЙТ. {content[language].rights}.</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <Link href="/privacy" className="hover:underline">
               {content[language].privacy}

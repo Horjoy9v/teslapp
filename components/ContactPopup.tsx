@@ -1,11 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -17,6 +12,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { useForm } from "react-hook-form";
 
 const formSchema = z.object({
   firstName: z.string().min(2, "Ім'я повинно містити щонайменше 2 символи"),
@@ -35,17 +33,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-interface ContactPopupProps {
-  isOpen: boolean;
-  onClose: () => void;
-  language: "en" | "ru";
-}
-
-export default function ContactPopup({
-  isOpen,
-  onClose,
-  language,
-}: ContactPopupProps) {
+export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<FormValues>({
@@ -62,157 +50,128 @@ export default function ContactPopup({
 
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
-    // Тут ви можете додати логіку для відправки даних на сервер
     console.log(data);
-    await new Promise((resolve) => setTimeout(resolve, 1000)); // Імітація відправки на сервер
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     setIsSubmitting(false);
-    onClose();
-  };
-
-  const content = {
-    en: {
-      title: "Contact Us",
-      firstName: "First Name",
-      lastName: "Last Name",
-      patronymic: "Patronymic",
-      phoneNumber: "Phone Number",
-      city: "City",
-      problemDescription: "Problem Description",
-      submit: "Submit",
-    },
-    ru: {
-      title: "Свяжитесь с нами",
-      firstName: "Имя",
-      lastName: "Фамилия",
-      patronymic: "Отчество",
-      phoneNumber: "Номер телефона",
-      city: "Город",
-      problemDescription: "Описание проблемы",
-      submit: "Отправить",
-    },
   };
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50"
-          onClick={onClose}
-        >
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            transition={{ type: "spring", damping: 15, stiffness: 300 }}
-            className="bg-white dark:bg-gray-800 rounded-lg p-6 w-full max-w-md"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold">{content[language].title}</h2>
-              <Button variant="ghost" size="icon" onClick={onClose}>
-                <X className="h-6 w-6" />
-              </Button>
-            </div>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-4"
-              >
-                <FormField
-                  control={form.control}
-                  name="firstName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{content[language].firstName}</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="lastName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{content[language].lastName}</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="patronymic"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{content[language].patronymic}</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="phoneNumber"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{content[language].phoneNumber}</FormLabel>
-                      <FormControl>
-                        <Input {...field} type="tel" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="city"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{content[language].city}</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="problemDescription"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>
-                        {content[language].problemDescription}
-                      </FormLabel>
-                      <FormControl>
-                        <Textarea {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button
-                  type="submit"
-                  className="w-full"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Submitting..." : content[language].submit}
-                </Button>
-              </form>
-            </Form>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <div className="w-full ">
+      <div className="w-full mx-auto bg-primary/60 backdrop-blur-sm rounded-lg shadow-xl p-6 ">
+        <h2 className="text-3xl font-bold text-center text-white mb-6">
+          Contact Us
+        </h2>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 ">
+            <FormField
+              control={form.control}
+              name="firstName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-white">First Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      className="bg-white bg-opacity-70 border border-gray-300 text-black placeholder-gray-500 rounded-md p-3"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="lastName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-white">Last Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      className="bg-white bg-opacity-70 border border-gray-300 text-black placeholder-gray-500 rounded-md p-3"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="patronymic"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-white">Patronymic</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      className="bg-white bg-opacity-70 border border-gray-300 text-black placeholder-gray-500 rounded-md p-3"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="phoneNumber"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-white">Phone Number</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      type="tel"
+                      className="bg-white bg-opacity-70 border border-gray-300 text-black placeholder-gray-500 rounded-md p-3"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="city"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-white">City</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      className="bg-white bg-opacity-70 border border-gray-300 text-black placeholder-gray-500 rounded-md p-3"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="problemDescription"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-white">
+                    Problem Description
+                  </FormLabel>
+                  <FormControl>
+                    <Textarea
+                      {...field}
+                      className="bg-white bg-opacity-70 border border-gray-300 text-black placeholder-gray-500 rounded-md p-3"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button
+              type="submit"
+              className="w-full bg-transparent text-indigo-500 border border-indigo-500 hover:bg-indigo-500 hover:text-white py-3 rounded-md"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Submitting..." : "Submit"}
+            </Button>
+          </form>
+        </Form>
+      </div>
+    </div>
   );
 }

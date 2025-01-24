@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import ThemeToggle from "@/components/ThemeToggle";
 import LanguageToggle from "@/components/LanguageToggle";
 import CaseStudies from "@/components/CaseStudies";
+import ContactPopup from "@/components/ContactPopup";
 type Language = "en" | "ru";
 
 export default function Home() {
@@ -34,7 +35,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-[url('/bg_image.png')] bg-cover bg-center bg-fixed">
+    <div className="bg-[url('/bg_image.jpg')] bg-cover bg-center bg-fixed">
       <AnimatePresence mode="wait">
         <motion.div
           key={theme + language}
@@ -59,6 +60,7 @@ export default function Home() {
           <Recognition language={language} />
           <CaseStudies language={language} />
           <Insights language={language} />
+          <ContactPopup />
           <Footer language={language} />
         </motion.div>
       </AnimatePresence>

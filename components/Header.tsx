@@ -6,7 +6,6 @@ import { Menu, ChevronLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "./ui/button";
 import Image from "next/image";
-import ContactPopup from "./ContactPopup";
 
 interface HeaderProps {
   language: "en" | "ru";
@@ -16,7 +15,6 @@ export default function Header({ language }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const [isContactPopupOpen, setIsContactPopupOpen] = useState(false);
 
   useEffect(() => {
     const checkIsMobile = () => {
@@ -110,7 +108,6 @@ export default function Header({ language }: HeaderProps) {
         {/* Кнопка Write Us для десктопа */}
         <div className="hidden md:block shadow-md p-2 rounded-xl">
           <Button
-            onClick={() => setIsContactPopupOpen(true)}
             className="text-lg bg-transparent hover:bg-transparent text-foreground/80 hover:text-foreground relative before:bg-teal-600 
         hover:before:scale-x-100 before:origin-bottom-left before:absolute before:bottom-0 before:left-0 
         before:block before:h-[2px] before:w-full before:scale-x-0 before:transition before:duration-300"
@@ -168,10 +165,7 @@ export default function Header({ language }: HeaderProps) {
                       {item.title}
                     </Button>
                   ))}
-                  <Button
-                    onClick={() => setIsContactPopupOpen(true)}
-                    className="mt-4 w-full"
-                  >
+                  <Button className="mt-4 w-full">
                     {language === "en" ? "Write us" : "Написать нам"}
                   </Button>
                 </nav>
@@ -204,11 +198,6 @@ export default function Header({ language }: HeaderProps) {
           </motion.div>
         )}
       </AnimatePresence>
-      <ContactPopup
-        isOpen={isContactPopupOpen}
-        onClose={() => setIsContactPopupOpen(false)}
-        language={language}
-      />
     </header>
   );
 }
