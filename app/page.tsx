@@ -16,7 +16,7 @@ type Language = "en" | "ru";
 
 export default function Home() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [language, setLanguage] = useState<Language>("en");
+  const [language, setLanguage] = useState<Language>("ru");
 
   useEffect(() => {
     document.body.className = theme;
