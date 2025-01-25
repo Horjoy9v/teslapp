@@ -57,7 +57,7 @@ export default function ContactForm() {
 
   return (
     <div className="w-full ">
-      <div className="w-full mx-auto bg-primary/60 backdrop-blur-sm rounded-lg shadow-xl p-6 ">
+      <div className="w-full mx-auto bg-white/60 backdrop-blur-sm rounded-lg shadow-xl p-6 ">
         <h2 className="text-3xl font-bold text-center text-white mb-6">
           Contact Us
         </h2>
@@ -118,6 +118,7 @@ export default function ContactForm() {
                 <FormItem>
                   <FormLabel className="text-white">Phone Number</FormLabel>
                   <FormControl>
+                    #contact
                     <Input
                       {...field}
                       type="tel"

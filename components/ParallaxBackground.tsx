@@ -17,7 +17,7 @@ const ParallaxBackground = () => {
           quality={100}
           width={2304} // або встановити ширину зображення
           height={1296} // пропорційно встановити висоту
-          className="object-cover w-full h-full bg-scroll"
+          className="object-cover w-full h-full bg-scroll "
         />
       </motion.div>
 

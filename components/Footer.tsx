@@ -5,38 +5,28 @@ interface FooterProps {
   language: "en" | "ru";
 }
 
-interface Content {
-  about: string;
-  services: string;
-  cases: string;
-  contact: string;
-  rights: string;
-  privacy: string;
-  terms: string;
-}
-
-const content: Record<FooterProps["language"], Content> = {
-  en: {
-    about: "About Us",
-    services: "Services",
-    cases: "Cases",
-    contact: "Contact",
-    rights: "All rights reserved",
-    privacy: "Privacy Policy",
-    terms: "Terms of Service",
-  },
-  ru: {
-    about: "О нас",
-    services: "Услуги",
-    cases: "Кейсы",
-    contact: "Контакты",
-    rights: "Все права защищены",
-    privacy: "Политика конфиденциальности",
-    terms: "Условия использования",
-  },
-};
-
 export default function Footer({ language }: FooterProps) {
+  const content = {
+    en: {
+      about: "About Us",
+      services: "Services",
+      cases: "Cases",
+      contact: "Contact",
+      rights: "All rights reserved",
+      privacy: "Privacy Policy",
+      terms: "Terms of Service",
+    },
+    ru: {
+      about: "О нас",
+      services: "Услуги",
+      cases: "Кейсы",
+      contact: "Контакты",
+      rights: "Все права защищены",
+      privacy: "Политика конфиденциальности",
+      terms: "Условия использования",
+    },
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -54,61 +44,30 @@ export default function Footer({ language }: FooterProps) {
 
   return (
     <motion.footer
-      className="bg-primary/60 backdrop-blur-sm text-primary-foreground"
+      className="bg-background text-foreground py-12"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
     >
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
           <motion.div variants={itemVariants}>
-            <h3 className="text-lg font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">
-              РАЙТ
-            </h3>
+            <h3 className="text-lg font-semibold mb-4 text-gradient">РАЙТ</h3>
             <p>© 2025 {content[language].rights}</p>
           </motion.div>
           <motion.div variants={itemVariants}>
-            <h3 className="text-lg font-semibold mb-4">
-              {content[language].about}
-            </h3>
+            <h3 className="text-lg font-semibold mb-4"></h3>
             <ul className="space-y-2">
-              <li>
-                <Link href="/about" className="hover:underline">
-                  {content[language].about}
-                </Link>
-              </li>
-              <li>
-                <Link href="/team" className="hover:underline">
-                  Team
-                </Link>
-              </li>
-              <li>
-                <Link href="/careers" className="hover:underline">
-                  Careers
-                </Link>
-              </li>
+              <li></li>
+              <li></li>
+              <li></li>
             </ul>
           </motion.div>
           <motion.div variants={itemVariants}>
-            <h3 className="text-lg font-semibold mb-4">
-              {content[language].services}
-            </h3>
+            <h3 className="text-lg font-semibold mb-4"></h3>
             <ul className="space-y-2">
-              <li>
-                <Link href="/services/corporate" className="hover:underline">
-                  {content[language].services}
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/litigation" className="hover:underline">
-                  Litigation
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/ip" className="hover:underline">
-                  Intellectual Property
-                </Link>
-              </li>
+              <li></li>
+              <li></li>
             </ul>
           </motion.div>
           <motion.div variants={itemVariants}>
@@ -116,22 +75,28 @@ export default function Footer({ language }: FooterProps) {
               {content[language].contact}
             </h3>
             <ul className="space-y-2">
-              <li>123 Law Street, City</li>
-              <li>Phone: +1 234 567 8900</li>
-              <li>Email: info@wright-legal.com</li>
+              <li>606023, Нижегородская обл., г. Дзержинск,</li>
+              <li>ул. Бутлерова, д. 19 пом. П1</li>
+              <li>email@bleb.com</li>
             </ul>
           </motion.div>
         </div>
         <motion.div
-          className="border-t border-primary-foreground/20 pt-8 flex flex-col md:flex-row justify-between items-center"
+          className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center"
           variants={itemVariants}
         >
           <p>&copy; 2025 РАЙТ. {content[language].rights}.</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
-            <Link href="/privacy" className="hover:underline">
+            <Link
+              href="/privacy"
+              className="hover:text-primary transition-colors"
+            >
               {content[language].privacy}
             </Link>
-            <Link href="/terms" className="hover:underline">
+            <Link
+              href="/terms"
+              className="hover:text-primary transition-colors"
+            >
               {content[language].terms}
             </Link>
           </div>

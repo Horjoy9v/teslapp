@@ -2,50 +2,40 @@ import { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import CountUp from "react-countup";
-import { Award } from "lucide-react";
 
 interface RecognitionProps {
   language: "en" | "ru";
 }
 
-interface Award {
-  name: string;
-  year: string;
-  count: number;
-}
-
-interface Content {
-  title: string;
-  description: string;
-  awards: Award[];
-}
-
-const content: Record<RecognitionProps["language"], Content> = {
-  en: {
-    title: "Professional Recognition",
-    description:
-      "Our experience is confirmed by reputable world rating agencies.",
-    awards: [
-      { name: "The Legal 500", year: "2023", count: 15 },
-      { name: "Chambers & Partners", year: "2023", count: 20 },
-      { name: "IFLR1000", year: "2023", count: 10 },
-    ],
-  },
-  ru: {
-    title: "Профессиональное Признание",
-    description:
-      "Наш опыт подтвержден авторитетными мировыми рейтинговыми агентствами.",
-    awards: [
-      { name: "The Legal 500", year: "2023", count: 15 },
-      { name: "Chambers & Partners", year: "2023", count: 20 },
-      { name: "IFLR1000", year: "2023", count: 10 },
-    ],
-  },
-};
-
 export default function Recognition({ language }: RecognitionProps) {
   const controls = useAnimation();
-  const [ref, inView] = useInView();
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
+  const content = {
+    en: {
+      title: "About us",
+      description:
+        "Our company provides legal services at the international level, specializing in the resolution of investment disputes and litigation between investors and various types of companies. We offer support at all stages of disputes, from pre-trial consultations to the enforcement of arbitration and court decisions. Our experience includes work with multilateral agreements and international conventions, which guarantees an effective solution to complex legal issues in the field of international law.",
+      awards: [
+        { name: "Cases Won", year: "2023", count: 98 },
+        { name: "Chambers & Partners", year: "2023", count: 20 },
+        { name: "IFLR1000", year: "2023", count: 10 },
+      ],
+    },
+    ru: {
+      title: "Про нас",
+      description:
+        "Наша компания предоставляет юридические услуги на международном уровне, специализируясь на разрешении инвестиционных споров и судебных разбирательств между инвесторами и различного рода компаниями. Мы предлагаем поддержку на всех этапах споров, от досудебных консультаций до исполнения решений арбитражных и судебных инстанций. Наш опыт охватывает работу с многосторонними соглашениями и международными конвенциями, что гарантирует эффективное решение сложных юридических вопросов в сфере международного права.",
+      awards: [
+        { name: "Выиграных дел", year: "2023", count: 98 },
+        { name: "Chambers & Partners", year: "2023", count: 20 },
+        { name: "IFLR1000", year: "2023", count: 10 },
+      ],
+    },
+  };
 
   useEffect(() => {
     if (inView) {
@@ -59,13 +49,13 @@ export default function Recognition({ language }: RecognitionProps) {
   };
 
   return (
-    <section ref={ref} className="py-16 bg-muted">
+    <section ref={ref} id="about" className="py-16 bg-background">
       <div className="container mx-auto px-4">
         <motion.h2
           initial={{ opacity: 0, y: -50 }}
           animate={controls}
           variants={itemVariants}
-          className="text-3xl md:text-4xl font-bold mb-6 text-center"
+          className="text-3xl md:text-4xl font-bold mb-6 text-center text-gradient"
         >
           {content[language].title}
         </motion.h2>
@@ -73,7 +63,7 @@ export default function Recognition({ language }: RecognitionProps) {
           initial={{ opacity: 0, y: -30 }}
           animate={controls}
           variants={itemVariants}
-          className="text-xl text-center mb-12"
+          className="text-xl text-center mb-12 text-foreground"
         >
           {content[language].description}
         </motion.p>
@@ -86,9 +76,10 @@ export default function Recognition({ language }: RecognitionProps) {
               animate={controls}
               variants={itemVariants}
             >
-              <Award size={48} className="mb-4 text-primary" />
-              <h3 className="text-xl font-semibold mb-2">{award.name}</h3>
-              <p>{award.year}</p>
+              <h3 className="text-xl font-semibold mb-2 text-primary">
+                {award.name}
+              </h3>
+              <p className="text-muted-foreground">{award.year}</p>
               <CountUp
                 start={0}
                 end={award.count}

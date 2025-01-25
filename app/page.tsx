@@ -4,14 +4,14 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import Services from "@/components/Services";
 import Recognition from "@/components/Recognition";
+import Services from "@/components/Services";
 import Insights from "@/components/Insights";
 import Footer from "@/components/Footer";
 import ThemeToggle from "@/components/ThemeToggle";
 import LanguageToggle from "@/components/LanguageToggle";
-import CaseStudies from "@/components/CaseStudies";
-import ContactPopup from "@/components/ContactPopup";
+import ContactForm from "@/components/ContactForm";
+
 type Language = "en" | "ru";
 
 export default function Home() {
@@ -35,7 +35,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-[url('/bg_image.jpg')] bg-cover bg-center bg-fixed">
+    <div className="bg-[url('/bg_image.jpg')] bg-cover bg-center bg-fixed min-h-screen">
       <AnimatePresence mode="wait">
         <motion.div
           key={theme + language}
@@ -47,6 +47,12 @@ export default function Home() {
           className={`min-h-screen ${theme}`}
         >
           <Header language={language} />
+          <Hero language={language} />
+          <Recognition language={language} />
+          <Services language={language} />
+          <Insights language={language} />
+          <ContactForm language={language} />
+          <Footer language={language} />
           <ThemeToggle
             theme={theme}
             setTheme={(value) => setTheme(value as "light" | "dark")}
@@ -55,13 +61,6 @@ export default function Home() {
             language={language}
             setLanguage={(value) => setLanguage(value as Language)}
           />
-          <Hero language={language} />
-          <Services language={language} />
-          <Recognition language={language} />
-          <CaseStudies language={language} />
-          <Insights language={language} />
-          <ContactPopup />
-          <Footer language={language} />
         </motion.div>
       </AnimatePresence>
     </div>
