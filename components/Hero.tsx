@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "./ui/button";
 import { useInView } from "react-intersection-observer";
+import { useCallback } from "react";
 
 interface HeroProps {
   language: "en" | "ru";
@@ -18,15 +19,22 @@ export default function Hero({ language }: HeroProps) {
     en: {
       title: "Law Firm 'Right'",
       subtitle: "Law firm with over fifteen years of experience.",
-      cta: "Learn More",
+      cta: "Free consultation",
     },
     ru: {
       title: "Адвокатское Бюро 'Райт'",
       subtitle:
         "Юридическая компания с более чем пятнадцатилетним опытом работы.",
-      cta: "Узнать больше",
+      cta: "Бесплатная консультация",
     },
   };
+
+  const scrollToContact = useCallback(() => {
+    const contactSection = document.getElementById("contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
 
   return (
     <section
@@ -39,7 +47,7 @@ export default function Hero({ language }: HeroProps) {
       />
       <div className="relative z-10 max-w-4xl mx-auto px-4">
         <motion.h1
-          className="text-5xl md:text-7xl font-bold mb-6 text-gradient"
+          className="text-5xl md:text-7xl font-bold mb-6 text-[#292f71]"
           initial={{ opacity: 0, y: 50 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
@@ -59,7 +67,11 @@ export default function Hero({ language }: HeroProps) {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <Button size="lg" className="button-primary">
+          <Button
+            size="lg"
+            className="button-primary px-48"
+            onClick={scrollToContact}
+          >
             {content[language].cta}
           </Button>
         </motion.div>

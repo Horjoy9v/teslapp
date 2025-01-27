@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import CountUp from "react-countup";
@@ -13,6 +13,7 @@ export default function Recognition({ language }: RecognitionProps) {
     triggerOnce: true,
     threshold: 0.1,
   });
+  const [startCounting, setStartCounting] = useState(false);
 
   const content = {
     en: {
@@ -40,6 +41,7 @@ export default function Recognition({ language }: RecognitionProps) {
   useEffect(() => {
     if (inView) {
       controls.start("visible");
+      setStartCounting(true);
     }
   }, [controls, inView]);
 
@@ -85,8 +87,19 @@ export default function Recognition({ language }: RecognitionProps) {
                 end={award.count}
                 duration={2.5}
                 separator=","
-                className="text-3xl font-bold text-primary mt-4"
-              />
+                useEasing={true}
+                useGrouping={true}
+                redraw={true}
+              >
+                {({ countUpRef }) => (
+                  <span
+                    ref={countUpRef}
+                    className="text-3xl font-bold text-primary mt-4"
+                  >
+                    {startCounting ? award.count : 0}
+                  </span>
+                )}
+              </CountUp>
               <p className="text-sm text-muted-foreground">
                 {language === "en" ? "Recognitions" : "Признаний"}
               </p>

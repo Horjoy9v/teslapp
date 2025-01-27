@@ -20,32 +20,46 @@ export default function Services({ language }: ServicesProps) {
       title: "Our Services",
       services: [
         {
-          title: "Corporate Law",
-          description: "Expert advice on all aspects of corporate law.",
+          title: "Filing applications with international bodies",
+            description:
+              `Case analysis: examining the circumstances of the dispute and the legislation, determining the jurisdiction for filing the application. Preparation of documentation: collecting evidence, drafting legal arguments for submission to international bodies (arbitration courts, international tribunals).
+              Authority selection: determining the most appropriate international body to resolve the dispute.
+              Filing the application: formally submitting the initiation of the case to the chosen body.`,
         },
         {
-          title: "Litigation",
-          description:
-            "Representing clients in court and arbitration proceedings.",
+          title: "Obtaining a pre-trial solution",
+            description:
+              `Mediation and negotiation: attempts to resolve the dispute through negotiations or mediation aimed at reaching a pre-trial agreement.
+              Consultations: recommendations to the client on possible outcomes and settlement options.
+              Pre-trial agreement: preparation and signing of a settlement agreement when reaching a compromise.`,
         },
         {
-          title: "Intellectual Property",
-          description:
-            "Protection and management of intellectual property rights.",
+          title: "Support for international proceedings",
+            description:
+              `Legal support: representing the client in arbitration, coordination with international experts.
+              Enforcement of decisions: recognition and enforcement of the arbitration award in the jurisdiction where the defendant's assets are located.
+              Organization of return: ensuring the return of funds (freezing of assets, collection of funds, transfer to the client).`,
         },
         {
-          title: "Real Estate",
-          description:
-            "Comprehensive legal services for real estate transactions.",
+          title: "Organization of return of funds",
+            description:
+              `Freezing of assets: organizing the process of blocking the defendant's assets.
+              Collection of funds: legal support for the collection process.
+              Transfer of funds to the client: support for the transfer of returned funds.`,
         },
         {
-          title: "Tax Law",
-          description: "Strategic tax planning and dispute resolution.",
+          title: "Protection of the rights of an individual in disputes with companies",
+            description:
+              `Analysis of the client's rights: assessment of violations in accordance with international law and treaties.
+              Consultations: development of a strategy for protecting interests and analysis of possible risks.
+              Legal protection: representing the client's interests in negotiations, courts and at the stage of execution of decisions.`,
         },
         {
-          title: "Employment Law",
-          description:
-            "Guidance on employment regulations and dispute resolution.",
+          title: `Consultations on international disputes`,
+            description:
+              `Strategy development: dispute analysis, selection of optimal legal solutions.
+              Legal advice: explanation of legislation and features of international law.
+              Negotiation support: assistance in reaching agreements at all stages of the dispute.`,
         },
       ],
     },
@@ -55,32 +69,44 @@ export default function Services({ language }: ServicesProps) {
         {
           title: "Подача заявлений в международные органы",
           description:
-            "Анализ дела: изучение обстоятельств спора и законодательства, определение юрисдикции для подачи заявления.",
+            `Анализ дела: изучение обстоятельств спора и законодательства, определение юрисдикции для подачи заявления. Подготовка документации: сбор доказательств, составление правовых аргументов для подачи в международные инстанции (арбитражные суды, международные трибуналы).
+             Выбор органа: определение наиболее подходящего международного органа для разрешения спора.
+             Подача заявления: формальная подача инициации дела в выбранную инстанцию.`,
         },
         {
-          title: "Судебные разбирательства",
+          title: "Получение досудебного решения",
           description:
-            "Представление интересов клиентов в суде и арбитражных разбирательствах.",
+            `Медиация и переговоры: попытки урегулирования спора через переговоры или медиацию, направленные на достижение досудебного соглашения.
+Консультации: рекомендации клиенту по возможным исходам и вариантам урегулирования.
+Досудебное соглашение: подготовка и подписание мирового соглашения при достижении компромисса.`,
         },
         {
-          title: "Интеллектуальная собственность",
+          title: "Сопровождение международного процесса",
           description:
-            "Защита и управление правами интеллектуальной собственности.",
+            `Юридическое сопровождение: представление интересов клиента в арбитраже, координация с международными экспертами.
+Исполнение решений: признание и исполнение арбитражного решения в юрисдикции, где находятся активы ответчика.
+Организация возврата: обеспечение возврата денежных средств (заморозка активов, взыскание средств, перевод клиенту).`,
         },
         {
-          title: "Недвижимость",
+          title: "Организация возврата денежных средств",
           description:
-            "Комплексные юридические услуги по сделкам с недвижимостью.",
+            `Заморозка активов: организация процесса блокировки активов ответчика.
+Взыскание средств: юридическое обеспечение процесса взыскания.
+Перевод средств клиенту: сопровождение передачи возвращенных средств.`,
         },
         {
-          title: "Налоговое право",
+          title: "Защита прав физического лица в спорах с компаниями",
           description:
-            "Стратегическое налоговое планирование и разрешение споров.",
+            `Анализ прав клиента: оценка нарушений в соответствии с международным правом и договорами.
+Консультации: разработка стратегии защиты интересов и анализ возможных рисков.
+Юридическая защита: представление интересов клиента в переговорах, судах и на этапе исполнения решений.`,
         },
         {
-          title: "Трудовое право",
+          title: `Консультации по международным спорам`,
           description:
-            "Консультации по трудовому законодательству и разрешение споров.",
+            `Разработка стратегии: анализ спора, выбор оптимальных юридических решений.
+Правовые рекомендации: разъяснение законодательства и особенностей международного права.
+Сопровождение переговоров: помощь в достижении соглашений на всех этапах спора.`,
         },
       ],
     },
@@ -112,13 +138,14 @@ export default function Services({ language }: ServicesProps) {
       ref={ref}
       id="services"
       className="py-16 bg-background/60 backdrop-blur-sm overflow-hidden"
+      
     >
       <div className="container mx-auto px-4">
         <motion.h2
           initial={{ opacity: 0, y: -50 }}
           animate={controls}
           variants={cardVariants}
-          className="text-3xl md:text-4xl font-bold mb-12 text-center text-gradient"
+          className="text-3xl md:text-4xl font-bold mb-12 text-center text-[#292f71]"
         >
           {content[language].title}
         </motion.h2>

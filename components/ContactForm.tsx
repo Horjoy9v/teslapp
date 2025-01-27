@@ -19,18 +19,18 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 const formSchema = z.object({
-  firstName: z.string().min(2, "Ім'я повинно містити щонайменше 2 символи"),
-  lastName: z.string().min(2, "Прізвище повинно містити щонайменше 2 символи"),
+  firstName: z.string().min(2, "Имя должно содержать не менее 2 символов"),
+  lastName: z.string().min(2, "Фамилия должна содержать не менее 2 символов"),
   patronymic: z
     .string()
-    .min(2, "По батькові повинно містити щонайменше 2 символи"),
+    .min(2, "Отчество должно содержать не менее 2 символов"),
   phoneNumber: z
     .string()
-    .regex(/^\+?[0-9]{10,14}$/, "Невірний формат номера телефону"),
-  city: z.string().min(2, "Назва міста повинна містити щонайменше 2 символи"),
+    .regex(/^\+?[0-9]{10,14}$/, "Неверный формат телефонного номера"),
+  city: z.string().min(2, "Название города должно содержать не менее 2 символов"),
   problemDescription: z
     .string()
-    .min(10, "Опис проблеми повинен містити щонайменше 10 символів"),
+    .min(10, "Описание проблемы должно содержать не менее 10 символов"),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -100,7 +100,7 @@ export default function ContactForm({ language }: ContactFormProps) {
       id="contact"
     >
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center text-gradient">
+        <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center text-[#292f71]">
           {content[language].title}
         </h2>
         <div className="max-w-2xl mx-auto bg-card rounded-lg shadow-xl p-6">

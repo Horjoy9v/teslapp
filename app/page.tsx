@@ -35,7 +35,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-[url('/bg_image.jpg')] bg-cover bg-center bg-fixed min-h-screen">
+    <div className="bg-[url('/bg_image.jpg')] bg-cover bg-center bg-fixed min-h-screen ">
       <AnimatePresence mode="wait">
         <motion.div
           key={theme + language}

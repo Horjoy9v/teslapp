@@ -33,13 +33,11 @@ export default function Header({ language }: HeaderProps) {
     en: [
       { title: "About", href: "#about" },
       { title: "Services", href: "#services" },
-      { title: "Cases", href: "#cases" },
       { title: "Contact", href: "#contact" },
     ],
     ru: [
       { title: "О нас", href: "#about" },
       { title: "Услуги", href: "#services" },
-      { title: "Кейсы", href: "#cases" },
       { title: "Контакты", href: "#contact" },
     ],
   };
@@ -66,7 +64,7 @@ export default function Header({ language }: HeaderProps) {
             className="mr-2"
           />
           <span className="text-gradient">
-            Адвокатское Бюро &apos;Райт&apos;
+            
           </span>
         </Link>
 

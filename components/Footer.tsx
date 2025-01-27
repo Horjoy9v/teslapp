@@ -1,5 +1,7 @@
-import Link from "next/link";
 import { motion } from "framer-motion";
+import YandexMap from "./YandexMap";
+import { PrivacyPolicyDialog } from "./PrivacyPolicyDialog";
+import { TermsOfServiceDialog } from "./TermsOfServiceDialog";
 
 interface FooterProps {
   language: "en" | "ru";
@@ -50,27 +52,26 @@ export default function Footer({ language }: FooterProps) {
       variants={containerVariants}
     >
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
-          <motion.div variants={itemVariants}>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+          <motion.div
+            variants={itemVariants}
+            className="col-span-1 md:col-span-1"
+          >
             <h3 className="text-lg font-semibold mb-4 text-gradient">РАЙТ</h3>
-            <p>© 2025 {content[language].rights}</p>
+            <p>Адвокатское Бюро</p>
           </motion.div>
-          <motion.div variants={itemVariants}>
-            <h3 className="text-lg font-semibold mb-4"></h3>
-            <ul className="space-y-2">
-              <li></li>
-              <li></li>
-              <li></li>
-            </ul>
+
+          <motion.div
+            variants={itemVariants}
+            className="col-span-1 md:col-span-2 flex justify-center"
+          >
+            <YandexMap apiKey={""} />
           </motion.div>
-          <motion.div variants={itemVariants}>
-            <h3 className="text-lg font-semibold mb-4"></h3>
-            <ul className="space-y-2">
-              <li></li>
-              <li></li>
-            </ul>
-          </motion.div>
-          <motion.div variants={itemVariants}>
+
+          <motion.div
+            variants={itemVariants}
+            className="col-span-1 md:col-span-1 text-right"
+          >
             <h3 className="text-lg font-semibold mb-4">
               {content[language].contact}
             </h3>
@@ -81,24 +82,17 @@ export default function Footer({ language }: FooterProps) {
             </ul>
           </motion.div>
         </div>
+
         <motion.div
           className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center"
           variants={itemVariants}
         >
-          <p>&copy; 2025 РАЙТ. {content[language].rights}.</p>
+          <p className="text-left w-full md:w-auto">
+            &copy; 2025 РАЙТ. {content[language].rights}.
+          </p>
           <div className="flex space-x-4 mt-4 md:mt-0">
-            <Link
-              href="/privacy"
-              className="hover:text-primary transition-colors"
-            >
-              {content[language].privacy}
-            </Link>
-            <Link
-              href="/terms"
-              className="hover:text-primary transition-colors"
-            >
-              {content[language].terms}
-            </Link>
+            <PrivacyPolicyDialog language={language} />
+            <TermsOfServiceDialog language={language} />
           </div>
         </motion.div>
       </div>

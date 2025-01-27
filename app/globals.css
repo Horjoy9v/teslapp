@@ -79,9 +79,7 @@
 
 .bg-gradient {
   @apply bg-gradient-to-r from-primary to-blue-600; /* Залишаємо градієнт */
-  backdrop-filter: blur(10px); /* Ефект розмиття */
   background: rgba(255, 255, 255, 0.5); /* Напівпрозорий білий */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Напівпрозора обводка */
 }
 
 .button-primary {

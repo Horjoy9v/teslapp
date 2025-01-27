@@ -96,7 +96,7 @@ export default function Insights({ language }: InsightsProps) {
           initial="hidden"
           animate={controls}
           variants={itemVariants}
-          className="text-3xl md:text-4xl font-bold mb-6 text-center text-gradient"
+          className="text-3xl md:text-4xl font-bold mb-6 text-center text-[#292f71]"
         >
           {content[language].title}
         </motion.h2>
