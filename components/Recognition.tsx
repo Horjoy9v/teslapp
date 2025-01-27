@@ -1,19 +1,26 @@
-import { useEffect, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import CountUp from "react-countup";
+import { useEffect, useState } from "react"
+import { motion, useAnimation } from "framer-motion"
+import { useInView } from "react-intersection-observer"
+import CountUp from "react-countup"
+
+interface Award {
+  name: string
+  year: string
+  count: number
+  isPercentage?: boolean
+}
 
 interface RecognitionProps {
-  language: "en" | "ru";
+  language: "en" | "ru"
 }
 
 export default function Recognition({ language }: RecognitionProps) {
-  const controls = useAnimation();
+  const controls = useAnimation()
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
-  });
-  const [startCounting, setStartCounting] = useState(false);
+  })
+  const [startCounting, setStartCounting] = useState(false)
 
   const content = {
     en: {
@@ -21,7 +28,7 @@ export default function Recognition({ language }: RecognitionProps) {
       description:
         "Our company provides legal services at the international level, specializing in the resolution of investment disputes and litigation between investors and various types of companies. We offer support at all stages of disputes, from pre-trial consultations to the enforcement of arbitration and court decisions. Our experience includes work with multilateral agreements and international conventions, which guarantees an effective solution to complex legal issues in the field of international law.",
       awards: [
-        { name: "Cases Won", year: "2023", count: 98 },
+        { name: "Cases Won", year: "2023", count: 98, isPercentage: true },
         { name: "Chambers & Partners", year: "2023", count: 20 },
         { name: "IFLR1000", year: "2023", count: 10 },
       ],
@@ -31,24 +38,24 @@ export default function Recognition({ language }: RecognitionProps) {
       description:
         "Наша компания предоставляет юридические услуги на международном уровне, специализируясь на разрешении инвестиционных споров и судебных разбирательств между инвесторами и различного рода компаниями. Мы предлагаем поддержку на всех этапах споров, от досудебных консультаций до исполнения решений арбитражных и судебных инстанций. Наш опыт охватывает работу с многосторонними соглашениями и международными конвенциями, что гарантирует эффективное решение сложных юридических вопросов в сфере международного права.",
       awards: [
-        { name: "Выиграных дел", year: "2023", count: 98 },
-        { name: "Chambers & Partners", year: "2023", count: 20 },
-        { name: "IFLR1000", year: "2023", count: 10 },
+        { name: "Выиграных дел", year: " ", count: 98, isPercentage: true },
+        { name: "Штат сотрудников", year: " ", count: 58 },
+        { name: "Лет на рынке", year: " ", count: 15 },
       ],
     },
-  };
+  }
 
   useEffect(() => {
     if (inView) {
-      controls.start("visible");
-      setStartCounting(true);
+      controls.start("visible")
+      setStartCounting(true)
     }
-  }, [controls, inView]);
+  }, [controls, inView])
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
+  }
 
   return (
     <section ref={ref} id="about" className="py-16 bg-background">
@@ -78,9 +85,7 @@ export default function Recognition({ language }: RecognitionProps) {
               animate={controls}
               variants={itemVariants}
             >
-              <h3 className="text-xl font-semibold mb-2 text-primary">
-                {award.name}
-              </h3>
+              <h3 className="text-xl font-semibold mb-2 text-primary">{award.name}</h3>
               <p className="text-muted-foreground">{award.year}</p>
               <CountUp
                 start={0}
@@ -90,23 +95,16 @@ export default function Recognition({ language }: RecognitionProps) {
                 useEasing={true}
                 useGrouping={true}
                 redraw={true}
+                suffix={award.isPercentage ? "%" : ""}
               >
-                {({ countUpRef }) => (
-                  <span
-                    ref={countUpRef}
-                    className="text-3xl font-bold text-primary mt-4"
-                  >
-                    {startCounting ? award.count : 0}
-                  </span>
-                )}
+                {({ countUpRef }) => <span ref={countUpRef} className="text-3xl font-bold text-primary mt-4" />}
               </CountUp>
-              <p className="text-sm text-muted-foreground">
-                {language === "en" ? "Recognitions" : "Признаний"}
-              </p>
+              
             </motion.div>
           ))}
         </div>
       </div>
     </section>
-  );
+  )
 }
+
