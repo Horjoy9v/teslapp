@@ -3,13 +3,6 @@ import { motion, useAnimation } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import CountUp from "react-countup"
 
-interface Award {
-  name: string
-  year: string
-  count: number
-  isPercentage?: boolean
-}
-
 interface RecognitionProps {
   language: "en" | "ru"
 }
@@ -20,7 +13,7 @@ export default function Recognition({ language }: RecognitionProps) {
     triggerOnce: true,
     threshold: 0.1,
   })
-  const [startCounting, setStartCounting] = useState(false)
+  const [setStartCounting] = useState(false)
 
   const content = {
     en: {
