@@ -13,7 +13,7 @@ export default function Recognition({ language }: RecognitionProps) {
     triggerOnce: true,
     threshold: 0.1,
   })
-  const [setStartCounting] = useState(false)
+  const [,setStartCounting] = useState(false)
 
   const content = {
     en: {
