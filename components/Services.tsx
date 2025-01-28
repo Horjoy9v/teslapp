@@ -156,7 +156,7 @@ export default function Services({ language }: ServicesProps) {
   return (
     <section
       id="services"
-      className="py-16 bg-background/60 backdrop-blur-sm overflow-hidden"
+      className="py-16 bg-background/70 backdrop-blur-sm overflow-hidden"
     >
       <div className="container mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-[#292f71]">
@@ -192,7 +192,7 @@ export default function Services({ language }: ServicesProps) {
                 key={index}
                 className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 scroll-snap-align-start"
               >
-                <Card className="h-full transform transition-transform duration-300 hover:scale-105 hover:shadow-lg bg-card text-card-foreground">
+                <Card className="h-full transform transition-transform duration-300 hover:bg-background/50 hover:shadow-lg bg-card text-card-foreground">
                   <CardHeader>
                     <CardTitle className="text-primary">
                       {service.title}

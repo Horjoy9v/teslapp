@@ -12,7 +12,7 @@ export default function ThemeToggle({ theme, setTheme }: ThemeToggleProps) {
       variant="outline"
       size="icon"
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      className="fixed bottom-4 right-4 z-50"
+      className="fixed bottom-0 right-0 z-50 m-4"
     >
       {theme === "light" ? (
         <Moon className="h-[1.2rem] w-[1.2rem]" />

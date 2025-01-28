@@ -36,7 +36,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-background min-h-screen">
+    <div className="bg-[url('/bg_image.jpg')] bg-cover bg-center bg-fixed min-h-screen flex flex-col">
       <AnimatePresence mode="wait">
         <motion.div
           key={theme + language}
@@ -45,7 +45,7 @@ export default function Home() {
           exit="out"
           variants={pageVariants}
           transition={pageTransition}
-          className={`min-h-screen ${theme}`}
+          className={`min-h-screen flex-grow ${theme}`}
         >
           <Header language={language} />
           <Hero language={language} />
@@ -54,17 +54,19 @@ export default function Home() {
           <Insights language={language} />
           <ContactForm language={language} />
           <Footer language={language} />
-          <ThemeToggle
-            theme={theme}
-            setTheme={(value) => setTheme(value as "light" | "dark")}
-          />
-          <LanguageToggle
-            language={language}
-            setLanguage={(value) => setLanguage(value as Language)}
-          />
           <Toaster position="top-right" />
         </motion.div>
       </AnimatePresence>
+
+      {/* Викликаємо кнопку тут, вона буде фіксована внизу екрана */}
+      <ThemeToggle
+        theme={theme}
+        setTheme={(value) => setTheme(value as "light" | "dark")}
+      />
+      <LanguageToggle
+        language={language}
+        setLanguage={(value) => setLanguage(value as Language)}
+      />
     </div>
   );
 }

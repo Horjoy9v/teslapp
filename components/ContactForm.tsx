@@ -99,17 +99,16 @@ export default function ContactForm({ language }: ContactFormProps) {
         variant: "destructive",
         description:
           language === "en"
-            ? `Error: ${
-                error instanceof Error
-                  ? error.message
-                  : "An unknown error occurred"
-              }`
-            : `Ошибка: ${
-                error instanceof Error
-                  ? error.message
-                  : "Произошла неизвестная ошибка"
-              }`,
-        action: <ToastAction altText="Try again">Try again</ToastAction>,
+            ? `Error: ${"An unknown error occurred"}`
+            : `Ошибка: ${"Произошла неизвестная ошибка"}`,
+        action: (
+          <ToastAction
+            altText="Try again"
+            onClick={() => onSubmit(form.getValues())}
+          >
+            {language === "en" ? `Try again` : `Еще раз`}
+          </ToastAction>
+        ),
       });
     } finally {
       setIsSubmitting(false);
