@@ -18,6 +18,9 @@ import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/hooks/use-toast";
+
 const formSchema = z.object({
   firstName: z.string().min(2, "Имя должно содержать не менее 2 символов"),
   lastName: z.string().min(2, "Фамилия должна содержать не менее 2 символов"),
@@ -27,7 +30,9 @@ const formSchema = z.object({
   phoneNumber: z
     .string()
     .regex(/^\+?[0-9]{10,14}$/, "Неверный формат телефонного номера"),
-  city: z.string().min(2, "Название города должно содержать не менее 2 символов"),
+  city: z
+    .string()
+    .min(2, "Название города должно содержать не менее 2 символов"),
   problemDescription: z
     .string()
     .min(10, "Описание проблемы должно содержать не менее 10 символов"),
@@ -40,7 +45,7 @@ interface ContactFormProps {
 }
 
 export default function ContactForm({ language }: ContactFormProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -58,11 +63,57 @@ export default function ContactForm({ language }: ContactFormProps) {
     },
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
-    console.log(data);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
+    try {
+      const response = await fetch("/api/submit-form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      console.log("Form data:", data);
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to submit form");
+      }
+
+      if (result.success) {
+        toast({
+          description:
+            language === "en"
+              ? "Form submitted successfully!"
+              : "Форма успешно отправлена!",
+        });
+        form.reset();
+      } else {
+        throw new Error(result.error || "Failed to submit form");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        variant: "destructive",
+        description:
+          language === "en"
+            ? `Error: ${
+                error instanceof Error
+                  ? error.message
+                  : "An unknown error occurred"
+              }`
+            : `Ошибка: ${
+                error instanceof Error
+                  ? error.message
+                  : "Произошла неизвестная ошибка"
+              }`,
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const content = {

@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import ThemeToggle from "@/components/ThemeToggle";
 import LanguageToggle from "@/components/LanguageToggle";
 import ContactForm from "@/components/ContactForm";
+import { Toaster } from "react-hot-toast";
 
 type Language = "en" | "ru";
 
@@ -35,7 +36,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-[url('/bg_image.jpg')] bg-cover bg-center bg-fixed min-h-screen ">
+    <div className="bg-background min-h-screen">
       <AnimatePresence mode="wait">
         <motion.div
           key={theme + language}
@@ -61,6 +62,7 @@ export default function Home() {
             language={language}
             setLanguage={(value) => setLanguage(value as Language)}
           />
+          <Toaster position="top-right" />
         </motion.div>
       </AnimatePresence>
     </div>
