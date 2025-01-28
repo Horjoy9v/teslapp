@@ -52,6 +52,7 @@ export default function Services({ language }: ServicesProps) {
         {
           title:
             "Protection of the rights of an individual in disputes with companies",
+
           description: [
             "Analysis of the client's rights: assessment of violations in accordance with international law and treaties.",
             "Consultations: development of a strategy for protecting interests and analysis of possible risks.",

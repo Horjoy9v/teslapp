@@ -13,7 +13,7 @@ export default function Recognition({ language }: RecognitionProps) {
     triggerOnce: true,
     threshold: 0.1,
   });
-  const [, setStartCounting] = useState(false);
+  const [startCounting, setStartCounting] = useState(false);
 
   const content = {
     en: {
@@ -96,9 +96,14 @@ export default function Recognition({ language }: RecognitionProps) {
                   <span
                     ref={countUpRef}
                     className="text-3xl font-bold text-primary mt-4"
-                  />
+                  >
+                    {startCounting ? award.count : 0}
+                  </span>
                 )}
               </CountUp>
+              <p className="text-sm text-muted-foreground">
+                {language === "en" ? "Recognitions" : "Признаний"}
+              </p>
             </motion.div>
           ))}
         </div>
