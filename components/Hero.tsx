@@ -1,7 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "./ui/button";
 import { useInView } from "react-intersection-observer";
-import { useCallback } from "react";
 
 interface HeroProps {
   language: "en" | "ru";
@@ -29,12 +28,11 @@ export default function Hero({ language }: HeroProps) {
     },
   };
 
-  const scrollToContact = useCallback(() => {
-    const contactSection = document.getElementById("contact");
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth" });
-    }
-  }, []);
+  const openTelegram = () => {
+    // Відкриваємо Telegram через URL-схему
+    const telegramLink = "https://t.me/balberman";
+    window.location.href = telegramLink;
+  };
 
   return (
     <section
@@ -69,8 +67,8 @@ export default function Hero({ language }: HeroProps) {
         >
           <Button
             size="lg"
-            className="button-primary px-48"
-            onClick={scrollToContact}
+            className="button-primary px-48 mt-4 transition-transform duration-300 transform hover:bg-slate-100 hover:text-zinc-800"
+            onClick={openTelegram}
           >
             {content[language].cta}
           </Button>
