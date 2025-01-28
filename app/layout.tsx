@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: "Райт",
   description: "Адвокатское Бюро 'Райт'",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/app/favicon.ico",
   },
 };
 
