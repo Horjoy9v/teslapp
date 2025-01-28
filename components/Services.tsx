@@ -1,19 +1,16 @@
-import { useState, useEffect } from "react";
-import { motion, useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
+import { useRef, useEffect, useState } from "react"
+import { Card, CardHeader, CardTitle, CardContent } from "./ui/card"
+import { Button } from "./ui/button"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 interface ServicesProps {
-  language: "en" | "ru";
+  language: "en" | "ru"
 }
 
 export default function Services({ language }: ServicesProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const controls = useAnimation();
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const [showLeftArrow, setShowLeftArrow] = useState(false)
+  const [showRightArrow, setShowRightArrow] = useState(true)
 
   const content = {
     en: {
@@ -53,8 +50,7 @@ export default function Services({ language }: ServicesProps) {
           ],
         },
         {
-          title:
-            "Protection of the rights of an individual in disputes with companies",
+          title: "Protection of the rights of an individual in disputes with companies",
           description: [
             "Analysis of the client's rights: assessment of violations in accordance with international law and treaties.",
             "Consultations: development of a strategy for protecting interests and analysis of possible risks.",
@@ -125,68 +121,65 @@ export default function Services({ language }: ServicesProps) {
         },
       ],
     },
-  };
+  }
 
   useEffect(() => {
-    if (inView) {
-      controls.start("visible");
+    const container = scrollContainerRef.current
+    if (container) {
+      const handleScroll = () => {
+        setShowLeftArrow(container.scrollLeft > 0)
+        setShowRightArrow(container.scrollLeft < container.scrollWidth - container.clientWidth)
+      }
+
+      container.addEventListener("scroll", handleScroll)
+      handleScroll() // Initial check
+
+      return () => container.removeEventListener("scroll", handleScroll)
     }
-  }, [controls, inView]);
+  }, [])
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex(
-        (prevIndex) => (prevIndex + 1) % content[language].services.length
-      );
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [language]);
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
+  const scroll = (direction: "left" | "right") => {
+    const container = scrollContainerRef.current
+    if (container) {
+      const scrollAmount = container.clientWidth
+      container.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      })
+    }
+  }
 
   return (
-    <section
-      ref={ref}
-      id="services"
-      className="py-16 bg-background/60 backdrop-blur-sm overflow-hidden"
-    >
+    <section id="services" className="py-16 bg-background/60 backdrop-blur-sm overflow-hidden">
       <div className="container mx-auto px-4">
-        <motion.h2
-          initial={{ opacity: 0, y: -50 }}
-          animate={controls}
-          variants={cardVariants}
-          className="text-3xl md:text-4xl font-bold mb-12 text-center text-[#292f71]"
-        >
-          {content[language].title}
-        </motion.h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-[#292f71]">{content[language].title}</h2>
         <div className="relative">
-          <motion.div
-            className="flex transition-all duration-500 ease-in-out"
-            animate={{
-              x: `-${currentIndex * (100 / 3)}%`,
+          {showLeftArrow && (
+            <Button className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10" onClick={() => scroll("left")}>
+              <ChevronLeft className="h-6 w-6" />
+            </Button>
+          )}
+          {showRightArrow && (
+            <Button
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10"
+              onClick={() => scroll("right")}
+            >
+              <ChevronRight className="h-6 w-6" />
+            </Button>
+          )}
+          <div
+            ref={scrollContainerRef}
+            className="flex overflow-x-auto space-x-6 pb-6 scrollbar-hide"
+            style={{
+              scrollBehavior: "smooth",
+              scrollSnapType: "x mandatory",
             }}
-            transition={{ type: "tween", ease: "easeInOut" }}
           >
-            {[
-              ...content[language].services,
-              ...content[language].services.slice(0, 2),
-            ].map((service, index) => (
-              <motion.div
-                key={index}
-                className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4"
-                initial="hidden"
-                animate={controls}
-                variants={cardVariants}
-              >
+            {content[language].services.map((service, index) => (
+              <div key={index} className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 scroll-snap-align-start">
                 <Card className="h-full transform transition-transform duration-300 hover:scale-105 hover:shadow-lg bg-card text-card-foreground">
                   <CardHeader>
-                    <CardTitle className="text-primary">
-                      {service.title}
-                    </CardTitle>
+                    <CardTitle className="text-primary">{service.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="list-disc pl-5 space-y-2">
@@ -196,11 +189,12 @@ export default function Services({ language }: ServicesProps) {
                     </ul>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
-  );
+  )
 }
+
